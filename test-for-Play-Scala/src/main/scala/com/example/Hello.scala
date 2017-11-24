@@ -1,50 +1,26 @@
 package com.example
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
+import com.sun.tools.javac.jvm.Profile
 
 object Hello extends App {
 
-  case class Person(fullName: String, age: Int)
+  val str = """
+    {
+      "name": "miyatin",
+      "age": 21,
+      "lang": ["Scala", "C#", "JavaScript", "PHP"]
+      "univ": {
+        "name": "Kobe Univ",
+        "major": "Engineering",
+        "grade": 4
+      }
+    }
+  """
 
-  implicit val personReads = (
-    (__ \ "full_name").read[String] ~
-      (__ \ "age").read[Int]
-    ) (Person)
+  // 文字列からProfileクラスへ
+  val profile: Profile = Json.parse(str).validate[Profile]
 
-  val samplePersonJson = Json.obj(
-    "full_name" -> "Nico Yazawa",
-    "age" -> 17
-  )
+  // ProfileクラスからJSONへ
+  val profileJson = Json.toJson(profile)
 
-  val person = Json.fromJson[Person](samplePersonJson).get
-  print(person.age)
-
-  val rawString =
-    """
-      |{
-      |  "name": "Alice",
-      |  "age": 20,
-      |  "favorites": ["tennis", "swimming"],
-      |  "family": [
-      |    {
-      |      "name": "Bob",
-      |      "relation": "father"
-      |    },
-      |    {
-      |      "name": "Catharin",
-      |      "relation": "mother"
-      |    }
-      |  ]
-      |}
-    """.stripMargin
-
-  // String to JsValue
-  // `Json.parse` throws exception for invalid input
-  val json: JsValue = Json.parse(rawString)
-  println(s"parsed json: ${json \ "name"}")
-
-  // JsValue to String
-  // `Json.prettyPrint` is also available to print pretty json
-  println(s"reversed to string: ${Json.stringify(json)}")
 }
