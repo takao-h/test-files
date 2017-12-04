@@ -3,7 +3,6 @@ package controllers
 import java.io.File
 import javax.inject._
 
-import com.sun.java.util.jar.pack.Package.File
 import play.api._
 import play.api.mvc._
 
@@ -26,13 +25,13 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-  def csv(id: String) = Action {
-    val path = Path("temp/csv/" + id + ".csv")
-    path.write("１行目")
-    path.write("２行目")
-    path.write("３行目")
-    val file = new File("temp/csv/" + id + ".csv")
-    Ok.sendFile(file)
-  }
+//  def csv(id: String) = Action {
+//    val path = Path("temp/csv/" + id + ".csv")
+//    path.write("１行目")
+//    path.write("２行目")
+//    path.write("３行目")
+//    val file = new File("temp/csv/" + id + ".csv")
+//    Ok.sendFile(file)
+//  }
 
 }
