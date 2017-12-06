@@ -3,7 +3,13 @@ package controllers
 import java.io.File
 import javax.inject._
 
+<<<<<<< HEAD
+=======
+import play.api._
+>>>>>>> a6dd744557fb0167877d60830cc2828faad27062
 import play.api.mvc._
+
+import scala.reflect.io.Path
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -22,6 +28,7 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
+<<<<<<< HEAD
   def download = Action {
 
     import java.io.{ FileOutputStream=>FileStream, OutputStreamWriter=>StreamWriter };
@@ -41,5 +48,15 @@ class HomeController @Inject() extends Controller {
 
     Ok.sendFile(file)
   }
+=======
+//  def csv(id: String) = Action {
+//    val path = Path("temp/csv/" + id + ".csv")
+//    path.write("１行目")
+//    path.write("２行目")
+//    path.write("３行目")
+//    val file = new File("temp/csv/" + id + ".csv")
+//    Ok.sendFile(file)
+//  }
+>>>>>>> a6dd744557fb0167877d60830cc2828faad27062
 
 }

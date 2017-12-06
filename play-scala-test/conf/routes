@@ -4,7 +4,11 @@
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
+<<<<<<< HEAD
 GET     /download                   controllers.HomeController.download
+=======
+GET     /csv                        controllers.HomeController.csv
+>>>>>>> a6dd744557fb0167877d60830cc2828faad27062
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
