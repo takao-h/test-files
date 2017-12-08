@@ -3,13 +3,11 @@ package controllers
 import java.io.File
 import javax.inject._
 
-<<<<<<< HEAD
-=======
-import play.api._
->>>>>>> a6dd744557fb0167877d60830cc2828faad27062
+import play.api.data.Form
+import play.api.i18n.{Lang, MessagesApi}
 import play.api.mvc._
+import play.i18n.Langs
 
-import scala.reflect.io.Path
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -28,7 +26,6 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-<<<<<<< HEAD
   def download = Action {
 
     import java.io.{ FileOutputStream=>FileStream, OutputStreamWriter=>StreamWriter };
@@ -48,15 +45,61 @@ class HomeController @Inject() extends Controller {
 
     Ok.sendFile(file)
   }
-=======
-//  def csv(id: String) = Action {
-//    val path = Path("temp/csv/" + id + ".csv")
-//    path.write("１行目")
-//    path.write("２行目")
-//    path.write("３行目")
-//    val file = new File("temp/csv/" + id + ".csv")
-//    Ok.sendFile(file)
+
+  import play.api.http.HttpErrorHandler
+  import play.api.mvc._
+  import scala.concurrent._
+  import javax.inject.Singleton
+
+  @Singleton
+  class ErrorHandler extends HttpErrorHandler {
+
+    def onClientError(request: RequestHeader, statusCode: Int, message: String) = {
+      Future.successful(
+        Status(statusCode)("A client error occurred: " + message)
+      )
+    }
+
+    def onServerError(request: RequestHeader, exception: Throwable) = {
+      Future.successful(
+        InternalServerError("A server error occurred: " + exception.getMessage)
+      )
+    }
+  }
+
+  import javax.inject._
+
+  import play.api.http.DefaultHttpErrorHandler
+  import play.api._
+  import play.api.mvc._
+  import play.api.routing.Router
+  import scala.concurrent._
+  @Singleton
+  class ErrorHandlerw @Inject() (
+                                 env: Environment,
+                                 config: Configuration,
+                                 sourceMapper: OptionalSourceMapper,
+                                 router: Provider[Router]
+                               ) extends DefaultHttpErrorHandler(env, config, sourceMapper, router) {
+
+    override def onProdServerError(request: RequestHeader, exception: UsefulException) = {
+      Future.successful(
+        InternalServerError("A server error occurred: " + exception.getMessage)
+      )
+    }
+
+    override def onForbidden(request: RequestHeader, message: String) = {
+      Future.successful(
+        Forbidden("You're not allowed to access this resource.")
+      )
+    }
+  }
+//
+//  class MyOtherService @Inject()(langs: Langs, messagesApi: MessagesApi) {
+//    implicit val lang: Lang = langs.availables.head
+//
+//    lazy val title: String = messagesApi("home.title")
 //  }
->>>>>>> a6dd744557fb0167877d60830cc2828faad27062
+
 
 }
