@@ -214,3 +214,6 @@ object OptionEither {
     }
   }
 }
+
+
+val hoge = Seq(Seq(1,2,3), Seq(4), Seq(5, 6)) flatMap { x => x }
