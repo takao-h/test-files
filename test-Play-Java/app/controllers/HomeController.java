@@ -2,13 +2,21 @@ package controllers;
 
 import play.mvc.*;
 
-import views.html.*;
+import services.Mailservice;
+
+import static com.sun.tools.doclint.HtmlTag.Attr.index;
 
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
 public class HomeController extends Controller {
+
+    private final Mailservice mailservice;
+
+    public HomeController(Mailservice mailservice) {
+        this.mailservice = mailservice;
+    }
 
     /**
      * An action that renders an HTML page with a welcome message.
@@ -20,6 +28,10 @@ public class HomeController extends Controller {
         return ok(index.render("Your new application is ready."));
     }
 
+    public Result mail(){
+        mailservice.sendEmail();
+        return ok(" send mail!");
+    }
 
 
 }

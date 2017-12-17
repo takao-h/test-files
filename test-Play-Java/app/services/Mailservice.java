@@ -1,10 +1,10 @@
 package services;
-import org.apache.commons.mail.EmailAttachment;
 import play.libs.mailer.Email;
 import play.libs.mailer.MailerClient;
 
 import javax.inject.Inject;
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ruth on 2017/12/17.
@@ -16,17 +16,29 @@ public class Mailservice {
         String cid = "1234";
         Email email = new Email()
                 .setSubject("Simple email")
-                .setFrom("Mister FROM <from@email.com>")
-                .addTo("Miss TO <to@email.com>")
+                .setFrom("Mister FROM <ht.almond.dyt@email.com>")
+                .addTo("Miss TO <hayashi_talao@gmail.com>")
                 // adds attachment
-                .addAttachment("attachment.pdf", new File("/some/path/attachment.pdf"))
+//                .addAttachment("attachment.pdf", new File("/some/path/attachment.pdf"))
                 // adds inline attachment from byte array
-                .addAttachment("data.txt", "data".getBytes(), "text/plain", "Simple data", EmailAttachment.INLINE)
+//                .addAttachment("data.txt", "data".getBytes(), "text/plain", "Simple data", EmailAttachment.INLINE)
                 // adds cid attachment
-                .addAttachment("image.jpg", new File("/some/path/image.jpg"), cid)
+//                .addAttachment("image.jpg", new File("/some/path/image.jpg"), cid)
                 // sends text, HTML or both...
-                .setBodyText("A text message")
-                .setBodyHtml("<html><body><p>An <b>html</b> message with cid <img src=\"cid:" + cid + "\"></p></body></html>");
+                .setBodyText(Alert());
+//                .setBodyHtml("<html><body><p>An <b>html</b> message with cid <img src=\"cid:" + cid + "\"></p></body></html>");
         mailerClient.send(email);
+    }
+
+
+    private String Alert(){
+        return "this is Alert mail";
+    }
+
+    private List<String> nonEntryList(){
+        List <String> nonEntry = new ArrayList<>();
+        nonEntry.add("hoge");
+        nonEntry.add("hige");
+        return nonEntry;
     }
 }
