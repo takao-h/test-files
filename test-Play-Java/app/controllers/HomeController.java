@@ -1,10 +1,10 @@
 package controllers;
 
-import play.mvc.*;
-
+import com.google.inject.Inject;
+import play.mvc.Controller;
+import play.mvc.Result;
 import services.Mailservice;
 
-import static com.sun.tools.doclint.HtmlTag.Attr.index;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -13,7 +13,7 @@ import static com.sun.tools.doclint.HtmlTag.Attr.index;
 public class HomeController extends Controller {
 
     private final Mailservice mailservice;
-
+    @Inject
     public HomeController(Mailservice mailservice) {
         this.mailservice = mailservice;
     }
@@ -24,8 +24,9 @@ public class HomeController extends Controller {
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
      */
+
     public Result index() {
-        return ok(index.render("Your new application is ready."));
+        return ok("Your new application is ready.");
     }
 
     public Result mail(){
