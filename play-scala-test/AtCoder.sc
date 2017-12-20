@@ -34,7 +34,7 @@ def fib(n: BigInt): BigInt = {
 
 // index(n)の値が必ずindex(n+1)よりも小さくindex(n-1)よりも大きい？
 
-/**わからぬ*/
+/**わからぬ2017/12/04*/
 
 //回答
 
@@ -49,10 +49,23 @@ object Scala extends App {
   println(isSorted(Array("BB", "CCC", "A"), (x: String, y: String) => x.length < y.length))  // false
 }
 
+//本家
+def isSorted[A](as: Array[A], gt: (A,A) => Boolean): Boolean = {
+  @annotation.tailrec
+  def go(n: Int): Boolean =
+    if (n >= as.length-1) true
+    else if (gt(as(n), as(n+1))) false
+    else go(n+1)
+
+  go(0)
+}
+
 //カリー化の実装
 
-/**わからなんだ*/
-object Scala extends App {
+/**わからぬ2017/12/04*/
+
+//お手本
+object Curry extends App {
   def curry[A, B, C](f: (A, B) => C): A => (B => C) = (a: A) => (b: B) => f(a, b)
 
   println(curry((_: Int) + (_: Int))(2)(3))  // 5
